@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 3c8aa4abc10317342b901c6eeb5ac60f
+timeCreated: 1669708438
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: F_esteghlal
+  fontNames:
+  - F_esteghlal
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

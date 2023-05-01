@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: a63adbf854230e54bbfaed0a5ef6b3c5
+timeCreated: 1669708438
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: F_badr Bold
+  fontNames:
+  - F_badr Bold
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

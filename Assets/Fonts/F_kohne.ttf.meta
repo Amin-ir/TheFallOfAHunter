@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 5085b8f508b612f4db60aef64bfc13de
+timeCreated: 1669708438
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: F_kohne
+  fontNames:
+  - F_kohne
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
