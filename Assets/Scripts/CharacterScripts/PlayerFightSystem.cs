@@ -26,8 +26,6 @@ public class PlayerFightSystem : MonoBehaviour {
 	public Text arrowCountText;
 	RectTransform theBarRectTransform, staminaRectTransform;
 	public float RollForceX = 5f, RollForceY = -2f;
-	Vector2 RollTargetPosition;
-	public float DistanceToRoll;
 	//Initialization & retrieving PlayerPrefs values
     void Start () {
 		
@@ -67,21 +65,13 @@ public class PlayerFightSystem : MonoBehaviour {
 
 		if(CrossPlatformInputManager.GetButtonDown("Roll") && playerScr.allowToMove)
 		{
-			dodge = true;
+			playerScr.allowToMove = false;
+			playerAnimator.SetBool("dodge", true);
 			RollForceX = Mathf.Abs(RollForceX) * (-Mathf.Sign(transform.localScale.x));
-			DistanceToRoll *= Mathf.Abs(DistanceToRoll) * (-Mathf.Sign(transform.localScale.x));
-			RollTargetPosition = new Vector2(transform.position.x + DistanceToRoll, transform.position.y);
-			playerScr._PlayerRigidBody.AddForce(new Vector2(RollForceX, RollForceY));
+			playerScr._PlayerRigidBody.AddForce(new Vector2(RollForceX, RollForceY), ForceMode2D.Impulse);
+			transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
 		}
 
-		if(Mathf.Abs(transform.position.x - RollTargetPosition.x) <= 0)
-		{
-			dodge = false;
-			playerScr.allowToMove = true;
-			playerScr._PlayerRigidBody.velocity = Vector2.zero;
-		}
-
-        playerAnimator.SetBool("dodge",dodge);
 
 		if (CrossPlatformInputManager.GetButtonDown("Dodge"))
 			playerAnimator.SetBool("dodgeDown", true);
@@ -166,8 +156,15 @@ public class PlayerFightSystem : MonoBehaviour {
 	}
 	public void dodgeDone()
 	{
-		mayPlayGetHitAnimation = true;
-		playerAnimator.SetBool ("dodgeDown", false);
+		if (playerScr._PlayerRigidBody.velocity == Vector2.zero)
+		{
+			print("hi");
+			playerScr.idol = true;
+			playerScr.allowToMove = true;
+			mayPlayGetHitAnimation = true;
+			playerAnimator.SetBool("dodge", false);
+			playerAnimator.SetBool("dodgeDown", false);
+		}
 	}
 	public void shootArrow()
     {
