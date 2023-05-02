@@ -158,7 +158,6 @@ public class PlayerFightSystem : MonoBehaviour {
 	{
 		if (playerScr._PlayerRigidBody.velocity == Vector2.zero)
 		{
-			print("hi");
 			playerScr.idol = true;
 			playerScr.allowToMove = true;
 			mayPlayGetHitAnimation = true;
