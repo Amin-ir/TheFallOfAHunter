@@ -2,18 +2,19 @@
 using UnityEngine;
 using Assets.Scripts;
 using UnityStandardAssets.CrossPlatformInput;
+using System.Linq;
+using UnityEngine.UI;
 
 public class armoredEnemyScript : MonoBehaviour {
 	public bool AllowedToMove = false, Stunned = false;
-	public float stun, maxStun = 20f;
+	public float stun, maxStun = 20f, distanceToAttack;
 	float stunUI_InitWidth;
-	public int secondsToPull = 5,secondsToUnstun = 5;
+	public float distanceToPlayer;
 	public GameObject stunUI,xp; 
 	enemyCommonScript _CommonProperties;
 	Animator anmtr;
 	Rigidbody2D _RigidBody;
 	PlayerFightSystem player;
-	// Use this for initialization
 	void Start() {
 		stunUI_InitWidth = stunUI.transform.localScale.x;
 		stun = maxStun;
@@ -22,19 +23,42 @@ public class armoredEnemyScript : MonoBehaviour {
 		anmtr = GetComponent<Animator>();
 		player = FindObjectOfType<PlayerFightSystem>();
 	}
-	// Update is called once per frame
 	void Update() 
 	{
+
 		if (_CommonProperties.Awake && _CommonProperties.health > 0 && !Stunned)
+		{
+			distanceToPlayer = Mathf.Abs(transform.position.x - player.transform.position.x);
+			AllowedToMove = !(distanceToPlayer <= distanceToAttack);
 			if (AllowedToMove)
+			{
+				anmtr.SetBool("smash", false);
 				_RigidBody.velocity = new Vector2(_CommonProperties.Speed, 0);
-			else StartCoroutine(smash(secondsToPull));
+			}
+			else {
+				Stop();
+				anmtr.SetBool("smash", true); 
+			}
+		}
 		else Stop();
+
+		if(CrossPlatformInputManager.GetButtonDown("Interaction") &&
+			player.stamina == player.maxStamina && player.playerStyle == Styles.idol)
+		{
+				player.gameObject.SetActive(false);
+				anmtr.SetBool("finisher", true);
+		}
+
+
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Player") && !_CommonProperties.Awake)
+		{
 			Move();
+			GetComponentsInChildren<Collider2D>().Where(collider => collider.isTrigger &&
+				collider.gameObject.name == "detector").First().enabled = false;
+		}
 		if (other.gameObject.CompareTag("weapon"))
         {
 			if (Stunned)
@@ -49,48 +73,43 @@ public class armoredEnemyScript : MonoBehaviour {
 			else
 			{
 				stun -= _CommonProperties.damageTaken;
-				stunUI.transform.localScale = new Vector3(stunUI_InitWidth * (stun / maxStun),
-					stunUI.transform.localScale.y, stunUI.transform.localScale.z);
 				if(stun <= 0)
                 {
 					stun = 0;
 					Stunned = true;
 					Stop();
 					anmtr.SetBool("stunned", true);
-					StartCoroutine(UnStun(secondsToUnstun));
 				}
+				SetStunUI();
 			}
 			player.stamina += _CommonProperties.damageTaken;
 		}
 	}
 	void OnTriggerStay2D(Collider2D col)
     {
-		if (col.CompareTag("Player") && CrossPlatformInputManager.GetButtonDown("Interaction") && Stunned)
-			if (player.stamina == player.maxStamina && player.playerStyle == Styles.idol)
-			{
-				player.gameObject.SetActive(false);
-				anmtr.SetBool("finisher", true);
-			}
+		if (col.CompareTag("Player") && Stunned && player.stamina == player.maxStamina)
+			FindObjectsOfType<ButtonHandler>().Where(o => o.gameObject.name == "Interaction")
+				.FirstOrDefault().GetComponent<Image>().color = Color.white;
 	}
-	IEnumerator smash(int i)
-    {
-		Stop();
-		anmtr.SetBool("smash", true);
-		yield return new WaitForSeconds(i);
-		anmtr.SetBool("smash", false);
-		Move();
+	void OnTriggerExit2D(Collider2D collision)
+	{
+		if(collision.CompareTag("Player"))
+			FindObjectsOfType<ButtonHandler>().Where(o => o.gameObject.name == "Interaction")
+				.FirstOrDefault().GetComponent<Image>().color = Color.clear;
 	}
-	IEnumerator UnStun(int i)
-    {
-		yield return new WaitForSeconds(i);
-		stun = maxStun;
-		Move();
-		anmtr.SetBool("stunned", false);
+	public void SetStunUI()
+	{
+		stunUI.transform.localScale = new Vector3(stunUI_InitWidth * (stun / maxStun),
+			stunUI.transform.localScale.y, stunUI.transform.localScale.z);
 	}
 	public void death()
     {
-		if (player.gameObject.activeSelf == false)
+		if (!player.gameObject.activeSelf)
+		{ 
 			player.gameObject.SetActive(true);
+			player.SetAnimatorStyleParameter();
+			FindObjectOfType<PlayerBehaviour>().allowToMove = true;
+		}
 		Stop();
 		gameObject.SetActive(false);
 		xp.transform.parent = null;
@@ -102,10 +121,17 @@ public class armoredEnemyScript : MonoBehaviour {
 		_CommonProperties.Awake = true;
 		Stunned = false;
 		anmtr.SetBool("awake", true);
+		anmtr.SetBool("stunned", false);
 	}
 	public void Stop()
     {
+		anmtr.SetBool("smash", false);
 		_RigidBody.velocity = Vector2.zero;
 		AllowedToMove = false;
     }
+	public void RefillStunnabilityBar()
+	{
+		stun = maxStun;
+		SetStunUI();
+	}
 }

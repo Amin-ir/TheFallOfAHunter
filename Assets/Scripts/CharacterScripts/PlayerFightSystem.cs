@@ -69,7 +69,6 @@ public class PlayerFightSystem : MonoBehaviour {
 			playerAnimator.SetBool("dodge", true);
 			RollForceX = Mathf.Abs(RollForceX) * (-Mathf.Sign(transform.localScale.x));
 			playerScr._PlayerRigidBody.AddForce(new Vector2(RollForceX, RollForceY), ForceMode2D.Impulse);
-			transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
 		}
 
 
