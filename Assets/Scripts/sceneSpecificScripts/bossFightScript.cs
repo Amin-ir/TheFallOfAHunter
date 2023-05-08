@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class bossFightScript : MonoBehaviour {
 
-    public bool allowedToMove = true, stunned = false;
-    public int angerLevel = 1;
+    public bool allowedToMove = true, stunned = false, IsWaiting = false;
+    public int angerLevel = 1, SecondsToWaitBetweenRangedAttacks = 2;
     public float movementSpeed = 10f, health, maxHealth = 100f, 
         distanceToAttackShortRange = 30f, distanceToAttackMidRange = 50f, distanceToAttackLongRange = 100f, aggressiveProtection = 100f;
     public GameObject platformFor3rdAngerObstacles;
@@ -46,7 +46,7 @@ public class bossFightScript : MonoBehaviour {
     }
     void Update()
     {
-        if (!stunned && allowedToMove)
+        if (!stunned && allowedToMove && !IsWaiting)
         {
             _animator.SetFloat("speed", Mathf.Abs(movementSpeed));
             distanceBetweenPlayerAndBoss = Mathf.Abs(_player.transform.position.x - transform.position.x);
@@ -216,6 +216,9 @@ public class bossFightScript : MonoBehaviour {
                 _animator.Play("lightningAttackAbove");
                 break;
         }
+        IsWaiting = true;
+        _animator.SetFloat("speed",0);
+        StartCoroutine(WaitAfterAttack());
     }
     public void throwAxe()
     {
@@ -247,5 +250,9 @@ public class bossFightScript : MonoBehaviour {
         }
         health -= 0.3f * maxHealth;
         healthUI.rectTransform.localScale = new Vector2((health / maxHealth) * healthUIInitialWidth.x, healthUIInitialWidth.y);
+    }
+    IEnumerator WaitAfterAttack(){
+        yield return new WaitForSeconds(SecondsToWaitBetweenRangedAttacks);
+        IsWaiting = false;
     }
 }
