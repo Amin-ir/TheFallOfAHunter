@@ -9,7 +9,7 @@ public class armoredEnemyScript : MonoBehaviour {
 	public bool AllowedToMove = false, Stunned = false;
 	public float stun, maxStun = 20f, distanceToAttack;
 	float stunUI_InitWidth;
-	public float distanceToPlayer;
+	float distanceToPlayer;
 	public GameObject stunUI,xp; 
 	enemyCommonScript _CommonProperties;
 	Animator anmtr;

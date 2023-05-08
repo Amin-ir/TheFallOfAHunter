@@ -11,13 +11,12 @@ public class bossFightScript : MonoBehaviour {
     public int angerLevel = 1;
     public float movementSpeed = 10f, health, maxHealth = 100f, 
         distanceToAttackShortRange = 30f, distanceToAttackMidRange = 50f, distanceToAttackLongRange = 100f, aggressiveProtection = 100f;
-
+    public GameObject platformFor3rdAngerObstacles;
     enemyCommonScript _commonScript;
     Animator _animator;
     PlayerFightSystem _player;
     PlayerBehaviour _playerBehaviour;
     Rigidbody2D _rigidBody;
-    Collider2D interactionCollider;
     Vector2 healthUIInitialWidth;
     Vector3 mainCameraInitialPosition;
     float cameraInitialFieldOfView;
@@ -36,9 +35,9 @@ public class bossFightScript : MonoBehaviour {
         _player = FindObjectOfType<PlayerFightSystem>();
         _rigidBody = GetComponent<Rigidbody2D>();
         _playerBehaviour = _player.gameObject.GetComponent<PlayerBehaviour>();
-
+        platformFor3rdAngerObstacles = GameObject.Find("3rdAngerObstacles");
+        platformFor3rdAngerObstacles.SetActive(false);
         healthUIInitialWidth = healthUI.rectTransform.localScale;
-        interactionCollider = GetComponents<Collider2D>().Where(collider => collider.isTrigger == true).First();
         mainCameraInitialPosition = Camera.main.transform.position;
         cameraInitialFieldOfView = Camera.main.fieldOfView;
 
@@ -160,7 +159,6 @@ public class bossFightScript : MonoBehaviour {
     void getStunned()
     {
         stunned = true;
-        interactionCollider.enabled = true;
         _animator.Play("stunned");
     }
     void defeatThrowables(GameObject obj)
@@ -179,7 +177,6 @@ public class bossFightScript : MonoBehaviour {
     }
     public void move()
     {
-        interactionCollider.enabled = false;
         aggressiveProtection = 100;
         stunned = false;
         allowedToMove = true;
@@ -244,6 +241,10 @@ public class bossFightScript : MonoBehaviour {
     public void decreaseHealth()
     {
         angerLevel++;
+        if(angerLevel == 3)
+        {
+            platformFor3rdAngerObstacles.SetActive(true);
+        }
         health -= 0.3f * maxHealth;
         healthUI.rectTransform.localScale = new Vector2((health / maxHealth) * healthUIInitialWidth.x, healthUIInitialWidth.y);
     }
