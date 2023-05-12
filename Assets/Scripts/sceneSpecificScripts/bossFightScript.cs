@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine;
 using Assets.Scripts;
@@ -112,7 +112,10 @@ public class bossFightScript : MonoBehaviour {
                     break;
                 case 2:
                     if (other.gameObject.GetComponent<ropeScript>() != null)
-                        getStunned();
+                        {
+                            getStunned();
+                            FindObjectOfType<ropeScript>().CloneSpikeyBall();
+                        }
                     else defeatThrowables(other.gameObject);
                     break;
                 case 3:
@@ -149,7 +152,7 @@ public class bossFightScript : MonoBehaviour {
     void getCameraOnBoss()
     {
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, mainCameraInitialPosition.z);
-        Camera.main.fieldOfView = 110f;
+        Camera.main.fieldOfView = 125f;
     }
     public void releaseCamera()
     {
@@ -177,7 +180,8 @@ public class bossFightScript : MonoBehaviour {
     }
     public void move()
     {
-        aggressiveProtection = 100;
+        if(stunned)
+            aggressiveProtection = 100;
         stunned = false;
         allowedToMove = true;
     }
@@ -244,15 +248,29 @@ public class bossFightScript : MonoBehaviour {
     public void decreaseHealth()
     {
         angerLevel++;
-        if(angerLevel == 3)
+        if(angerLevel == 2)
         {
             platformFor3rdAngerObstacles.SetActive(true);
         }
+        else platformFor3rdAngerObstacles.SetActive(false);
         health -= 0.3f * maxHealth;
         healthUI.rectTransform.localScale = new Vector2((health / maxHealth) * healthUIInitialWidth.x, healthUIInitialWidth.y);
     }
     IEnumerator WaitAfterAttack(){
         yield return new WaitForSeconds(SecondsToWaitBetweenRangedAttacks);
         IsWaiting = false;
+    }
+    void LoadNextScene(){
+		var nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
+        CustomTools.StoreGameSavingParameters(
+            nextLevel,
+            0,
+            PlayerPrefs.GetInt("xp"),
+            PlayerPrefs.GetInt("armorUpgrade"),
+            PlayerPrefs.GetInt("swordUpgrade"),
+            PlayerPrefs.GetInt("axeUpgrade"),
+            PlayerPrefs.GetInt("arrow")
+            );
+		SceneManager.LoadScene(nextLevel);
     }
 }

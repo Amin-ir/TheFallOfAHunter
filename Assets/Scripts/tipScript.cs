@@ -7,10 +7,9 @@ public class tipScript : MonoBehaviour {
     Text tipsText;
     Image tipsImage;
     GameObject tipsGameObject;
-
     private void Start()
     {
-        tipsGameObject = Resources.FindObjectsOfTypeAll<TipUIDisplayScript>().First().gameObject;
+        tipsGameObject = FindObjectOfType<Canvas>().transform.Find("tipsUI").gameObject;
         tipsImage = tipsGameObject.transform.Find("Image").GetComponent<Image>();
         tipsText = tipsGameObject.GetComponentInChildren<Text>();
     }
@@ -18,7 +17,7 @@ public class tipScript : MonoBehaviour {
     {
         if(col.CompareTag("Player") && !alreadyDisplayed)
         {
-            var fetchedCodex = FindObjectOfType<ButtonsScript>().codexPages[indexAtCodex];
+            var fetchedCodex = FindObjectOfType<Canvas>().GetComponent<ButtonsScript>().codexPages[indexAtCodex];
             tipsText.text = fetchedCodex.content;
             if (fetchedCodex.additionalImage != null)
             {

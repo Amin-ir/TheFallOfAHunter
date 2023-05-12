@@ -143,6 +143,7 @@ public class PlayerBehaviour : MonoBehaviour {
                 transform.position = new Vector3(transform.position.x + climbX, transform.position.y + climbY, transform.position.z);
             else transform.position = new Vector3(transform.position.x - climbX, transform.position.y + climbY, transform.position.z);
         }
+        playerScr.SetAnimatorStyleParameter();
     }
     public void move() 
     {

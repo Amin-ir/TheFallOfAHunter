@@ -15,7 +15,7 @@ public class PlayerFightSystem : MonoBehaviour {
     public Animator playerAnimator;
 	PlayerBehaviour playerScr;
     enemyCommonScript[] _EnemiesInTheScene;
-	public float maxHealth = 100f,stamina,maxStamina = 100f, currentHealth,healthBarInitialWidth,staminaBarInitialWidth;
+	public float maxHealth = 100f,stamina,maxStamina = 100f, currentHealth;
 	public float LFist = 1f, HFist = 2.5f, LAxe = 3f, HAxe = 5f,throwingAxeDamage = 7f, LSword = 7f, HSword = 9f,screenFadeRate = 5f,
 	stormDamage = 30f,bombDamage = 20f,lightningDamage = 40f,arrowDamage = 5f; // L<name> : Light Attack && H<name> : Heavy Attack
 	public bool hasAxe = true, dodge = false, AllowedToUseSword = false, mayPlayGetHitAnimation = true;
@@ -26,6 +26,7 @@ public class PlayerFightSystem : MonoBehaviour {
 	public Text arrowCountText;
 	RectTransform theBarRectTransform, staminaRectTransform;
 	public float RollForceX = 5f, RollForceY = -2f;
+	float healthBarInitialWidth,staminaBarInitialWidth;
 	//Initialization & retrieving PlayerPrefs values
     void Start () {
 		
