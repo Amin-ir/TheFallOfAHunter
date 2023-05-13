@@ -30,7 +30,7 @@ public class ropeScript : MonoBehaviour {
 			CloneSpikeyBall();	
     }
 	public void CloneSpikeyBall(){
-		var ObjectToDeactive = GetParentRecursively(3); 
+		var ObjectToDeactive = GetParentRecursively(3);
 		var _clone = Instantiate(ObjectToClone, ObjectToDeactive.transform.position, Quaternion.identity) as GameObject;
 		ObjectToDeactive.SetActive(false);		
 	}

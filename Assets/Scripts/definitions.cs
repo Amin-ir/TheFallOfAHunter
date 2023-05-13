@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 namespace Assets.Scripts
 {
     public enum SwipeDirection
@@ -49,6 +50,18 @@ namespace Assets.Scripts
             PlayerPrefs.SetInt("swordUpgrade",swordUpgradeLevel);
             PlayerPrefs.SetInt("axeUpgrade",axeUpgradeLevel);
             PlayerPrefs.SetInt("arrow",arrow);
+        }
+        public static void FetchNextLevelInstantly(){
+            int nextLevelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            StoreGameSavingParameters
+            (   nextLevelIndex,
+                0,
+                PlayerPrefs.GetInt("xp"),
+                PlayerPrefs.GetInt("armorUpgrade"),
+                PlayerPrefs.GetInt("swordUpgrade"),
+                PlayerPrefs.GetInt("axeUpgrade"),
+                PlayerPrefs.GetInt("arrow"));
+            SceneManager.LoadScene(nextLevelIndex);
         }
         public static SwipeDirection DetectSwipe(Vector2 start, Vector2 end)
         {

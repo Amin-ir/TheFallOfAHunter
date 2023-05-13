@@ -5,6 +5,7 @@ using Assets.Scripts;
 using UnityEngine.UI;
 public class ButtonsScript : MonoBehaviour {
 	public GameObject confirmationForNewGame;
+	public GameObject confirmationForSkipCuscene;
 	public codexPage[] codexPages;
 	public GameObject quote;
 	int codexCounter = 0;
@@ -107,5 +108,16 @@ public class ButtonsScript : MonoBehaviour {
     {
 		codexObject.SetActive(false);
 	}
-
+	public void loadNextLevelInstantly(){
+		Time.timeScale = 1f;
+		CustomTools.FetchNextLevelInstantly();
+	}
+	public void ActivateSkipCutscenePanel(){
+		Time.timeScale = 0f;
+		confirmationForSkipCuscene.SetActive(true);
+	}
+	public void CloseConfirmationForSkipCutscene(){
+		Time.timeScale = 1f;
+		confirmationForSkipCuscene.SetActive(false);
+	}
 }

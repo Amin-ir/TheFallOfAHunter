@@ -261,16 +261,6 @@ public class bossFightScript : MonoBehaviour {
         IsWaiting = false;
     }
     void LoadNextScene(){
-		var nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
-        CustomTools.StoreGameSavingParameters(
-            nextLevel,
-            0,
-            PlayerPrefs.GetInt("xp"),
-            PlayerPrefs.GetInt("armorUpgrade"),
-            PlayerPrefs.GetInt("swordUpgrade"),
-            PlayerPrefs.GetInt("axeUpgrade"),
-            PlayerPrefs.GetInt("arrow")
-            );
-		SceneManager.LoadScene(nextLevel);
+		CustomTools.FetchNextLevelInstantly();
     }
 }
