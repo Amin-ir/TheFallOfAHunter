@@ -34,4 +34,7 @@ public class enemyCommonScript : MonoBehaviour {
 			transform.localScale = new Vector2(TrueDirection * Mathf.Abs(transform.localScale.x), transform.localScale.y);
 		}
 	}
+	void OnTriggerEnter2D(Collider2D col){
+		if(col.CompareTag("weapon")) Awake = true;
+	}
 }
