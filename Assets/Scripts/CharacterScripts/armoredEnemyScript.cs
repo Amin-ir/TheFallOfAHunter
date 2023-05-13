@@ -15,7 +15,9 @@ public class armoredEnemyScript : MonoBehaviour {
 	Animator anmtr;
 	Rigidbody2D _RigidBody;
 	PlayerFightSystem player;
+	GameObject detector;
 	void Start() {
+		detector = transform.Find("detector").gameObject;
 		stunUI_InitWidth = stunUI.transform.localScale.x;
 		stun = maxStun;
 		_CommonProperties = GetComponent<enemyCommonScript>();
@@ -56,8 +58,7 @@ public class armoredEnemyScript : MonoBehaviour {
 		if (other.CompareTag("Player") && !_CommonProperties.Awake)
 		{
 			Move();
-			GetComponentsInChildren<Collider2D>().Where(collider => collider.isTrigger &&
-				collider.gameObject.name == "detector").First().enabled = false;
+			detector.SetActive(false);
 		}
 		if (other.gameObject.CompareTag("weapon"))
         {

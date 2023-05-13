@@ -16,8 +16,9 @@ public class spearSoldierScript : MonoBehaviour {
     List<float> PlayerSpecialAttacksDamages = new List<float>();
 
 	public GameObject xp;
-
+	GameObject detector;
 	void Start() {
+		detector = transform.Find("detector").gameObject;
 		_RigidBody = GetComponent<Rigidbody2D>();
 		_CommonProperties = GetComponent<enemyCommonScript>();
 		_Animator = GetComponent<Animator>();
@@ -44,7 +45,10 @@ public class spearSoldierScript : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.CompareTag("Player"))
-			_Animator.SetBool("awake", true);
+			{
+				_Animator.SetBool("awake", true);
+				detector.SetActive(false);
+			}
 		if (col.CompareTag("weapon"))
 		{
 			if (!Stunned)

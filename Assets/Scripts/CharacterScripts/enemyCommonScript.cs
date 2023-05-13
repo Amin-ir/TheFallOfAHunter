@@ -10,7 +10,6 @@ public class enemyCommonScript : MonoBehaviour {
 	public float Speed = 5f, DistanceToAttack = 35f;
 	PlayerBehaviour _Player;
 	float healthUIInitWidth;
-
 	void Start () {
 		Awake = false;
 		GetThrown = false;
@@ -35,6 +34,11 @@ public class enemyCommonScript : MonoBehaviour {
 		}
 	}
 	void OnTriggerEnter2D(Collider2D col){
-		if(col.CompareTag("weapon")) Awake = true;
+		if(col.CompareTag("weapon")) 
+			{
+				Awake = true;
+				if(transform.Find("detector").gameObject != null)
+					transform.Find("detector").gameObject.SetActive(false);
+			}
 	}
 }

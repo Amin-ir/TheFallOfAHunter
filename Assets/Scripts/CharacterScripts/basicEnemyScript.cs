@@ -12,8 +12,10 @@ public class basicEnemyScript : MonoBehaviour
     Rigidbody2D _RigidBody;
     PlayerBehaviour _Player;
     PlayerFightSystem _PlayerFightScript;
+    GameObject detector;
     void Start()
     {
+        detector = transform.Find("detector").gameObject;
         _Animator = GetComponent<Animator>();
         _CommonProperties = GetComponent<enemyCommonScript>();
         _Player = FindObjectOfType<PlayerBehaviour>();
@@ -38,7 +40,10 @@ public class basicEnemyScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
-            _Animator.SetBool("alert", true);
+            {
+                _Animator.SetBool("alert", true);
+                detector.SetActive(false);
+            }
 
         if(col.CompareTag("weapon"))
         {
