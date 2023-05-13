@@ -75,8 +75,7 @@ public class PlayerBehaviour : MonoBehaviour {
         if (col.gameObject.CompareTag("Surface"))
             onSurface = true;
     }
-    void OnTriggerEnter2D(Collider2D col)
-    {
+    void OnTriggerStay2D(Collider2D col){
         if (col.gameObject.CompareTag("edge") && _PlayerRigidBody.velocity.y > 0)
         {
             playerAnimator.Play("climb");
