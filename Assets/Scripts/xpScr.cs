@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class xpScr : MonoBehaviour {
     public int addingXP = 10;
-    PlayerBehaviour playerScr;
-	// Use this for initialization
-	void Start () {
-        playerScr = FindObjectOfType<PlayerBehaviour>();
-	}
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
+            var playerScr = FindObjectOfType<PlayerBehaviour>();
             playerScr.xp += addingXP;
             gameObject.SetActive(false);
         }

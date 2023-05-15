@@ -47,6 +47,7 @@ public class basicEnemyScript : MonoBehaviour
 
         if(col.CompareTag("weapon"))
         {
+            _CommonProperties.Awake = true;
             if (_CommonProperties.GetThrown)
             {
                 _Animator.Play("getThrown");

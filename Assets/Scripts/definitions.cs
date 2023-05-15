@@ -84,6 +84,12 @@ namespace Assets.Scripts
                 else Debug.Log(PlayerPrefsKeys[i] + " does not exist");
             }
         }
+        public static GameObject GetAscendantParent(this GameObject obj, int depth){
+            GameObject target = obj;
+            for (int i = 0; i < depth; i++)
+                target = target.transform.parent.gameObject;
+            return target;
+        }
     }
     [System.Serializable]
     public class codexPage

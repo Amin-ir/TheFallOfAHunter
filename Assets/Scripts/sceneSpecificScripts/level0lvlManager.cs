@@ -2,7 +2,7 @@
 using UnityEngine;
 using Assets.Scripts;
 using UnityEngine.UI;
-
+using System.Linq;
 
 public class level0lvlManager : MonoBehaviour {
 
@@ -20,6 +20,7 @@ public class level0lvlManager : MonoBehaviour {
 	public Sprite thirdProfile;
 	public bool symmetricThirdProfile = false;
 	void Start () {	
+		
 		anmtr = GetComponent<Animator>();
 		if (player != null)
 		{

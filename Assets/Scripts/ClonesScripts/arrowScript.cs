@@ -19,11 +19,6 @@ public class arrowScript : MonoBehaviour {
 		if (rd.velocity.x < 0)
 			transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y,transform.localScale.z);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.CompareTag ("Surface"))

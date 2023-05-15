@@ -57,7 +57,8 @@ public class puzzleScript : MonoBehaviour {
         player.SetAnimatorStyleParameter();
         if(effectedPuzzle != null)
             effectedPuzzle.triggered = true;
-        effectedPuzzle.GetComponent<enemyWeaponScript>().damageGiven = 0;
+        if(effectedPuzzle.GetComponent<enemyWeaponScript>() != null)
+            effectedPuzzle.GetComponent<enemyWeaponScript>().damageGiven = 0;
     }
     bool CheckIfPlayerIsStill()
     {

@@ -11,6 +11,7 @@ public class ArrowBagScript : MonoBehaviour {
         {
             var player = FindObjectOfType<PlayerFightSystem>();
             player.arrowCount += ArrowToGive;
+            player.UpdateArrowCounterUI();
             gameObject.SetActive(false);
         }
     }

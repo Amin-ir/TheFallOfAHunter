@@ -62,6 +62,7 @@ public class armoredEnemyScript : MonoBehaviour {
 		}
 		if (other.gameObject.CompareTag("weapon"))
         {
+			_CommonProperties.Awake = true;
 			if (Stunned)
 			{
 				_CommonProperties.health -= _CommonProperties.damageTaken;

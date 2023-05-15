@@ -6,10 +6,11 @@ public class tipScript : MonoBehaviour {
     bool alreadyDisplayed = false;
     Text tipsText;
     Image tipsImage;
-    GameObject tipsGameObject;
+    public GameObject tipsGameObject;
     private void Start()
     {
-        tipsGameObject = FindObjectOfType<Canvas>().transform.Find("tipsUI").gameObject;
+        if(tipsGameObject == null)
+            tipsGameObject = FindObjectOfType<Canvas>().transform.Find("tipsUI").gameObject;
         tipsImage = tipsGameObject.transform.Find("Image").GetComponent<Image>();
         tipsText = tipsGameObject.GetComponentInChildren<Text>();
     }

@@ -29,7 +29,6 @@ public class PlayerFightSystem : MonoBehaviour {
 	float healthBarInitialWidth,staminaBarInitialWidth;
 	//Initialization & retrieving PlayerPrefs values
     void Start () {
-		
 		playerScr = GetComponent<PlayerBehaviour>();
         theBarRectTransform = currHealthUI.GetComponent<RectTransform>();
 		staminaRectTransform = currStaminaUI.GetComponent<RectTransform>();
@@ -60,10 +59,9 @@ public class PlayerFightSystem : MonoBehaviour {
 		}
 		playerAnimator.SetBool("heavy",false);
 		playerAnimator.SetBool("light",false);
-
         theBarRectTransform.sizeDelta = new Vector2((currentHealth/maxHealth) * healthBarInitialWidth, theBarRectTransform.sizeDelta.y);
 		staminaRectTransform.sizeDelta = new Vector2 ((stamina/maxStamina) * staminaBarInitialWidth, staminaRectTransform.sizeDelta.y);
-
+		
 		if(CrossPlatformInputManager.GetButtonDown("Roll") && playerScr.allowToMove)
 		{
 			playerScr.allowToMove = false;
@@ -168,6 +166,7 @@ public class PlayerFightSystem : MonoBehaviour {
 	public void shootArrow()
     {
 		mayPlayGetHitAnimation = false;
+		arrowCount--;
 		GameObject clone = Instantiate(arrow, shootArrowPosition.position, Quaternion.identity) as GameObject;
 		StartCoroutine(waitFunction(1));
     }
@@ -213,8 +212,7 @@ public class PlayerFightSystem : MonoBehaviour {
 			case Styles.idol:
 				if (arrowCount > 0)
 				{
-					arrowCount--;
-					arrowCountText.text = arrowCount.ToString() + " X";
+					UpdateArrowCounterUI();
 					playerAnimator.Play("shootBow");
 					if (_EnemiesInTheScene != null)
 						foreach (var item in _EnemiesInTheScene)
@@ -338,5 +336,8 @@ public class PlayerFightSystem : MonoBehaviour {
 				playerAnimator.SetInteger("Style", 3);
 				break;
 		}
+	}
+	public void UpdateArrowCounterUI(){
+		arrowCountText.text = arrowCount.ToString() + " X";
 	}
 }

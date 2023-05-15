@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts;
 using UnityEngine;
 
 public class ropeScript : MonoBehaviour {
@@ -30,14 +29,8 @@ public class ropeScript : MonoBehaviour {
 			CloneSpikeyBall();	
     }
 	public void CloneSpikeyBall(){
-		var ObjectToDeactive = GetParentRecursively(3);
+		var ObjectToDeactive = gameObject.GetAscendantParent(depth: 3);
 		var _clone = Instantiate(ObjectToClone, ObjectToDeactive.transform.position, Quaternion.identity) as GameObject;
 		ObjectToDeactive.SetActive(false);		
-	}
-	GameObject GetParentRecursively(int depth){
-		GameObject target = gameObject;
-		for(int i = 0; i < depth; i++)
-			target = target.transform.parent.gameObject;
-		return target;
 	}
 }

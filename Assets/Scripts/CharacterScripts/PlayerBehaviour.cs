@@ -23,7 +23,9 @@ public class PlayerBehaviour : MonoBehaviour {
 
         playerScr = GetComponent<PlayerFightSystem>();
         playerAnimator = GetComponent<Animator>();
-
+        
+        if(PlayerPrefs.GetInt("DisplayTips") == -1)
+            FindObjectsOfType<tipScript>().ToList().ForEach(tip => tip.gameObject.SetActive(false));
         if (PlayerPrefs.GetInt("checkpoint") != 0)
         {
             var checkpointPosition = FindObjectsOfType<checkpointScript>().
@@ -68,7 +70,7 @@ public class PlayerBehaviour : MonoBehaviour {
             else
                 idol = false;
         }
-        matchHealthWithUI();
+        MatchHealthWithAppearance();
     }
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -92,7 +94,7 @@ public class PlayerBehaviour : MonoBehaviour {
     {
         onSurface = (collision.gameObject.CompareTag("Surface"));
     }
-    void matchHealthWithUI()
+    void MatchHealthWithAppearance()
     {
         if (playerScr.currentHealth != playerScr.maxHealth)
         {
