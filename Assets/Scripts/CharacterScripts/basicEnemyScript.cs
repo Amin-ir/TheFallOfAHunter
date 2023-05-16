@@ -49,10 +49,8 @@ public class basicEnemyScript : MonoBehaviour
         {
             _CommonProperties.Awake = true;
             if (_CommonProperties.GetThrown)
-            {
                 _Animator.Play("getThrown");
-                _CommonProperties.GetThrown = false;
-            }
+
             else
             {
                 _CommonProperties.health -= _CommonProperties.damageTaken;

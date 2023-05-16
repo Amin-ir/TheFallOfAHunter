@@ -136,6 +136,8 @@ public class PlayerFightSystem : MonoBehaviour {
 	public void endAnim()
 	{
 		playerAnimator.SetBool ("staminaAttack", false);
+		foreach(var enemy in _EnemiesInTheScene)
+			enemy.GetThrown = false;
 		Time.timeScale = 1f;
 		playerScr.allowToMove = true;
 	}
