@@ -56,20 +56,19 @@ public class spearSoldierScript : MonoBehaviour {
 					StartCoroutine(GetStunned(SecondsToRevive));
 				else
 				{
-					_Player.stamina += _CommonProperties.damageTaken;
 					_Animator.SetBool("defense", true);
-					_RigidBody.velocity = Vector2.zero;
-					_CommonProperties.Awake = false;
+					Stop();
 				}
-			else
+			else if (_CommonProperties.health > 0)
 			{
-				_Player.stamina += _CommonProperties.damageTaken;
 				if (_Player.stamina >= _Player.maxStamina)
 					FindObjectsOfType<ButtonHandler>().Where(o => o.gameObject.name == "SpecialAttack")
 						.FirstOrDefault().gameObject.SetActive(true);
-				if (_CommonProperties.health < 0)
+				_CommonProperties.health -= _CommonProperties.damageTaken;
+				if (_CommonProperties.health <= 0)
 					Die();
 			}
+			_Player.stamina += _CommonProperties.damageTaken;
 		}
 	}
 	IEnumerator GetStunned(int i)
