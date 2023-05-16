@@ -248,6 +248,7 @@ public class bossFightScript : MonoBehaviour {
     public void decreaseHealth()
     {
         angerLevel++;
+        _player.currentHealth += _player.maxHealth / 2;
         if(angerLevel == 2)
         {
             platformFor3rdAngerObstacles.SetActive(true);
