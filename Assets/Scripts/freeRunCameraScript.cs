@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class freeRunCameraScript : MonoBehaviour {
-
+	//this script must attach to level manager game object
 	public Transform cameraStartFollowingPlayerPoint, cameraStopFollowingPlayerPoint;
 
 	freeRunScript player;

@@ -73,9 +73,9 @@ public class ButtonsScript : MonoBehaviour {
     }
 	public void fetchNextCodexPage() 
 	{
-		if(codexCounter != codexPages.Length - 1)
+		if(codexCounter != codexPages.Length)
         {
-			var nextCodex = codexPages[++codexCounter];
+			var nextCodex = codexPages[codexCounter++];
 			loadCodexPage(nextCodex);
         }
 		else
