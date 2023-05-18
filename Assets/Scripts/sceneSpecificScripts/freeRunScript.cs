@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System.Linq;
 public class freeRunScript : MonoBehaviour {
 
 	Animator anim;
@@ -17,6 +17,8 @@ public class freeRunScript : MonoBehaviour {
 
 	void Start () {
 		health = maxHealth;
+		if(PlayerPrefs.GetInt("DisplayTips") == -1)
+			FindObjectsOfType<tipScript>().ToList().ForEach(tip => tip.gameObject.SetActive(false));
 		anim = GetComponent<Animator>();
 		rgd = GetComponent<Rigidbody2D>();
         healthBar = healthUI.transform as RectTransform;

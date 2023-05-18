@@ -66,8 +66,6 @@ public class PlayerFightSystem : MonoBehaviour {
 		{
 			playerScr.allowToMove = false;
 			playerAnimator.SetBool("dodge", true);
-			RollForceX = Mathf.Abs(RollForceX) * (-Mathf.Sign(transform.localScale.x));
-			playerScr._PlayerRigidBody.AddForce(new Vector2(RollForceX, RollForceY), ForceMode2D.Impulse);
 		}
 
 
@@ -341,5 +339,9 @@ public class PlayerFightSystem : MonoBehaviour {
 	}
 	public void UpdateArrowCounterUI(){
 		arrowCountText.text = arrowCount.ToString() + " X";
+	}
+	public void Roll(){
+		RollForceX = Mathf.Abs(RollForceX) * (-Mathf.Sign(transform.localScale.x));
+		playerScr._PlayerRigidBody.AddForce(new Vector2(RollForceX, RollForceY), ForceMode2D.Impulse);
 	}
 }

@@ -15,7 +15,7 @@ public class ButtonsScript : MonoBehaviour {
 		if(!PlayerPrefs.HasKey("DisplayTips") || PlayerPrefs.GetInt("DisplayTips") == 0)
 			PlayerPrefs.SetInt("DisplayTips",1);
 		if(FindObjectOfType<Toggle>() != null)
-			FindObjectOfType<Toggle>().isOn = (PlayerPrefs.GetInt("DisplayTips") == 1);
+			FindObjectOfType<Toggle>().isOn = (PlayerPrefs.GetInt("DisplayTips") == 1 || !PlayerPrefs.HasKey("DisplayTips"));
 		if (transform.Find("Codex") != null)
 			codexObject = transform.Find("Codex").gameObject;
     }
