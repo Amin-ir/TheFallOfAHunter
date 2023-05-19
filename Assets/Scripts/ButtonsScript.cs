@@ -12,10 +12,6 @@ public class ButtonsScript : MonoBehaviour {
 	GameObject codexObject;
 	public void Start()
     {
-		if(!PlayerPrefs.HasKey("DisplayTips") || PlayerPrefs.GetInt("DisplayTips") == 0)
-			PlayerPrefs.SetInt("DisplayTips",1);
-		if(FindObjectOfType<Toggle>() != null)
-			FindObjectOfType<Toggle>().isOn = (PlayerPrefs.GetInt("DisplayTips") == 1 || !PlayerPrefs.HasKey("DisplayTips"));
 		if (transform.Find("Codex") != null)
 			codexObject = transform.Find("Codex").gameObject;
     }
@@ -123,8 +119,5 @@ public class ButtonsScript : MonoBehaviour {
 	public void CloseConfirmationForSkipCutscene(){
 		Time.timeScale = 1f;
 		confirmationForSkipCuscene.SetActive(false);
-	}
-	public void ToggleDisplayingTips(){
-		PlayerPrefs.SetInt("DisplayTips",-PlayerPrefs.GetInt("DisplayTips"));
 	}
 }

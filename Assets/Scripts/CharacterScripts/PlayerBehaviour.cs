@@ -24,8 +24,6 @@ public class PlayerBehaviour : MonoBehaviour {
         playerScr = GetComponent<PlayerFightSystem>();
         playerAnimator = GetComponent<Animator>();
         
-        if(PlayerPrefs.GetInt("DisplayTips") == -1)
-            FindObjectsOfType<tipScript>().ToList().ForEach(tip => tip.gameObject.SetActive(false));
         if (PlayerPrefs.GetInt("checkpoint") != 0)
         {
             var checkpointPosition = FindObjectsOfType<checkpointScript>().
@@ -33,10 +31,11 @@ public class PlayerBehaviour : MonoBehaviour {
                      transform.position;
             transform.position = new Vector3(checkpointPosition.x, checkpointPosition.y,transform.position.z);
             foreach (var item in FindObjectsOfType<enemyCommonScript>())
-            {
                 if (item.transform.position.x < checkpointPosition.x)
                     item.gameObject.SetActive(false);
-            }
+            foreach (var item in FindObjectsOfType<tipScript>())
+                if(item.transform.position.x < checkpointPosition.x)
+                    item.gameObject.SetActive(false);
         }
 
         if (PlayerPrefs.HasKey("xp"))
