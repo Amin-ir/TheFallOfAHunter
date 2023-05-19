@@ -35,7 +35,7 @@ public class ButtonsScript : MonoBehaviour {
 			return;
 		}
 		SceneManager.LoadScene(2);
-		CustomTools.StoreGameSavingParameters(0, 0, 0, 0, 0, 0, 0);
+		CustomTools.StoreGameSavingParameters(2,0,0,0,0,0,0);
 	}
 	public void closeConfirmNewgameObject()
     {
