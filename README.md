@@ -16,7 +16,7 @@ Players can review the provided mechnisms and tips through the codex menu.
 ![ScreenShot2](https://github.com/Amin-ir/TheFallOfAHunter/assets/91383421/b9486872-864e-4622-afac-e8a2107388e3)
 
 ## Installation
-To install and play The Fall of A Hunter, follow these steps:
+To install and play The Fall of A Hunter, you can simply download an initial built version from [here](https://s33.picofile.com/file/8484372568/TFOAH.apk.html) OR you may follow these steps:
 1. Clone or download the repository.
 2. Open the project in Unity version 2022.1.24f1 or later. (Make sure you have already installed Android platform asset for Unity)
 3. Build the game for Android or run it in the Unity Editor using Unity Remote.
